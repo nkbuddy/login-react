@@ -7,6 +7,7 @@ import RegisterPage from './components/RegisterPage'
 import ForgetPasswordPage from './components/ForgetPasswordPage'
 import HomePage from './components/HomePage'
 import Report from './components/Report'
+import AccountSetting from './components/AccountSetting'
 import Navbar from './components/bootstrap/Navbar.js'
 
 import './App.css'
@@ -24,6 +25,7 @@ export default function App() {
                     <Route path="/forget-password" element={ <ForgetPasswordPage/> } />
                     <Route path="/home" element={ <HomePage/> } />
                     <Route path="/report" element={ <Report/> } />
+                    <Route path="/account-setting" element={ <AccountSetting/> } />
                 </Routes>
             </div>
         </Router>
@@ -32,7 +34,7 @@ export default function App() {
 
 const Footer = () => {
     return (
-        <p className="text-center" style={ FooterStyle }>Designed & coded by <a href="https://izemspot.netlify.com" target="_blank" rel="noopener noreferrer">IZEMSPOT</a></p>
+        <p className="footer mt-auto py-3 bg-body-tertiary" style={ FooterStyle }>Designed & coded by <a href="https://izemspot.netlify.com" target="_blank" rel="noopener noreferrer">IZEMSPOT</a></p>
     )
 }
 
