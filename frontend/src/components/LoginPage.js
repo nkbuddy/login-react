@@ -1,9 +1,41 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import "../App.css";
 
 export default function SignInPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onChangeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const data = {
+      email: email,
+      password: password,
+    };
+    axios
+      .post(
+        "https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/login",
+        data
+      )
+      .then((response) => {
+        console.log(response.data);
+        window.location.href = '/'+response.data[0]['_id'];
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   return (
     <Fragment>
       <div
@@ -32,6 +64,8 @@ export default function SignInPage() {
                     className="form-control rounded-3"
                     id="floatingInput"
                     placeholder="name@example.com"
+                    value={email}
+              onChange={onChangeEmail}
                   />
                   <label for="floatingInput">Username or email address</label>
                 </div>
@@ -41,6 +75,8 @@ export default function SignInPage() {
                     className="form-control rounded-3"
                     id="floatingPassword"
                     placeholder="Password"
+                    value={password}
+              onChange={onChangePassword}
                   />
                   <label for="floatingPassword">Password</label>
                   <Link to="/forget-password">
@@ -50,6 +86,7 @@ export default function SignInPage() {
                 <button
                   className="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
                   type="submit"
+                  onClick={onSubmit}
                 >
                   Sign in
                 </button>
@@ -74,7 +111,7 @@ export default function SignInPage() {
               </form>
               <footer>
                 <p>
-                  First time? <Link to="/register">Create an account</Link>.
+                  First time? <Link to={"/register"}>Create an account</Link>.
                 </p>
                 <p>
                   <Link to="/">Back to Homepage</Link>.

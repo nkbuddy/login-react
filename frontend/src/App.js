@@ -19,6 +19,7 @@ export default function App() {
             <div>
             <Navbar/>
                 <Routes>
+                    <Route path="/:userid" element={<HomePage/>}/>
                     <Route path="/" element={ <LandingPage/> } />
                     <Route path="/login" element={ <LoginPage/> } />
                     <Route path="/register" element={ <RegisterPage/> } />
