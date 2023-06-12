@@ -1,16 +1,17 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-import LandingPage from './components/LandingPage'
-import LoginPage from './components/LoginPage'
-import RegisterPage from './components/RegisterPage'
-import ForgetPasswordPage from './components/ForgetPasswordPage'
-import HomePage from './components/HomePage'
-import Report from './components/Report'
-import AccountSetting from './components/AccountSetting'
-import Navbar from './components/bootstrap/Navbar.js'
+import LandingPage from './LandingPage'
+import LoginPage from './login/LoginPage'
+import RegisterPage from './login/RegisterPage'
+import ForgetPasswordPage from './login/ForgetPasswordPage'
+import HomePage from './HomePage'
+import Report from './report/Report'
+import AccountSetting from './profile/AccountSetting'
+import Navbar from './navbar/Navbar.jsx'
+import Toggle from './shop/Toggle'
 
-import './App.css'
+import '../App.css'
 import "bootstrap/dist/css/bootstrap.css";
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
                     <Route path="/home" element={ <HomePage/> } />
                     <Route path="/report" element={ <Report/> } />
                     <Route path="/account-setting" element={ <AccountSetting/> } />
+                    <Route path="/shop" element={ <Toggle/> } />
                 </Routes>
             </div>
         </Router>

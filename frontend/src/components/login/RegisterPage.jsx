@@ -2,7 +2,7 @@ import React, { useState,Fragment } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import "../App.css";
+import "../../App.css";
 
 export default function SignUpPage() {
   const [email,setEmail] = useState("");
