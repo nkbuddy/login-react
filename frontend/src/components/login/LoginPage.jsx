@@ -1,12 +1,14 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import * as Realm from "realm-web";
 
 import "../../App.css";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const app = new Realm.App({ id: "application-0-hxfdv" });
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -34,6 +36,22 @@ export default function SignInPage() {
       .catch((e) => {
         console.log(e);
       });
+  };
+
+  const google = (response) => {
+// The redirect URL should be on the same domain as this app and
+      // specified in the auth provider configuration.
+      const redirectUrl = "https://codesandbox.io/s/blue-sun-ngrm77?file=/src/App.js";
+      const credentials = Realm.Credentials.google({ redirectUrl });
+      // Calling logIn() opens a Google authentication screen in a new window.
+      app
+        .logIn(credentials)
+        .then((user) => {
+          // The logIn() promise will not resolve until you call `handleAuthRedirect()`
+          // from the new window after the user has successfully authenticated.
+          console.log(`Logged in with id: ${user.id}`);
+        })
+        .catch((err) => console.error(err));
   };
 
   return (
@@ -98,6 +116,7 @@ export default function SignInPage() {
                 <button
                   className="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
                   type="submit"
+                  onClick={google}
                 >
                   Sign in with Google
                   <i classNameName="bi bi-google-fill btn"></i>
