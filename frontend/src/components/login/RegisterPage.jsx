@@ -1,12 +1,17 @@
-import React, { useState,Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import * as Realm from "realm-web";
 
 import "../../App.css";
 
+const REALM_APP_ID = "application-0-hxfdv"; // e.g. myapp-abcde
+const app = new Realm.App({ id: REALM_APP_ID });
+
 export default function SignUpPage() {
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -16,20 +21,36 @@ export default function SignUpPage() {
     setPassword(e.target.value);
   };
 
-  const onSubmit = (e) =>{
+  const onSubmit = (e) => {
     e.preventDefault();
     const data = {
       email: email,
       password: password,
+    };
+    axios
+      .post(
+        "https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/register",
+        data
+      )
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    setEmail("");
+  };
+
+  async function emailSignup(e) {
+    e.preventDefault();
+    try {
+      await app.emailPasswordAuth.registerUser({ email, password });
+      console.log("User registered successfully!");
+      window.location.href = '/login';
+    } catch (error) {
+      console.error("Failed to register user:", error);
+      setErrorMessage(error.error.toString());
     }
-    axios.post('https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/register', data)
-  .then(response=>{
-    console.log(response.data);
-  })
-  .catch(e=>{
-    console.log(e);
-  });
-  setEmail('');
   }
 
   return (
@@ -60,12 +81,12 @@ export default function SignUpPage() {
             />
             <label for="floatingPassword">Password</label>
           </div>
-          <div className="checkbox mb-3">
-            <label>
-              <input type="checkbox" value="remember-me" /> Remember me
-            </label>
-          </div>
-          <button className="w-100 btn btn-lg btn-primary" type="submit" onClick={onSubmit}>
+          <div style={{ color: 'red' }}>{errorMessage}</div>
+          <button
+            className="w-100 btn btn-lg btn-primary"
+            type="submit"
+            onClick={emailSignup}
+          >
             Sign up
           </button>
           <hr className="my-4" />
