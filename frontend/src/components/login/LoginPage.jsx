@@ -30,7 +30,7 @@ export default function SignInPage() {
       const user = await app.logIn(credentials);
       setUser(user);
       // `App.currentUser` updates to match the logged in user
-      console.assert(user.id === app.currentUser.id);
+      console.assert(user.id === app.currentUser.id); 
       window.location.href = '/'+user.id;
     } catch (error) {
       //console.error('Failed to register user:', error);
@@ -55,7 +55,7 @@ export default function SignInPage() {
     <Fragment>
       <div
         className="modal modal-sheet position-static d-block p-4 py-md-5"
-        tabindex="-1"
+        tabIndex="-1"
         role="dialog"
         id="modalSignin"
       >
@@ -82,7 +82,7 @@ export default function SignInPage() {
                     value={email}
                     onChange={onChangeEmail}
                   />
-                  <label for="floatingInput">email address</label>
+                  <label>email address</label>
                 </div>
                 <div className="form-floating mb-3">
                   <input
@@ -93,9 +93,9 @@ export default function SignInPage() {
                     value={password}
                     onChange={onChangePassword}
                   />
-                  <label for="floatingPassword">Password</label>
+                  <label>Password</label>
                   <Link to="/forget-password">
-                    <label classNameName="right-label">Forget password?</label>
+                    <label className="right-label">Forget password?</label>
                   </Link>
                 </div>
                 <div style={{ color: "red" }}>{errorMessage}</div>
@@ -121,7 +121,7 @@ export default function SignInPage() {
                   type="submit"
                 >
                   Sign in with Google
-                  <i classNameName="bi bi-google-fill btn"></i>
+                  <i className="bi bi-google-fill btn"></i>
                 </button>
                 <button
                   className="w-100 py-2 mb-2 btn btn-outline-primary rounded-3"
