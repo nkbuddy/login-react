@@ -18,7 +18,7 @@ import "bootstrap/dist/css/bootstrap.css";
 export default function App() {
     return (
         <Router>
-            <div>
+            <div></div>
             <Navbar/>
                 <Routes>
                     <Route path="/:userid" element={<HomePage/>}/>
