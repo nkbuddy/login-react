@@ -18,7 +18,7 @@ import "bootstrap/dist/css/bootstrap.css";
 export default function App() {
     return (
         <Router>
-            <div></div>
+            <div>
             <Navbar/>
                 <Routes>
                     <Route path="/:userid" element={<HomePage/>}/>
@@ -26,10 +26,10 @@ export default function App() {
                     <Route path="/login" element={ <LoginPage/> } />
                     <Route path="/register" element={ <RegisterPage/> } />
                     <Route path="/forget-password" element={ <ForgetPasswordPage/> } />
-                    <Route path="/home" element={ <HomePage/> } />
+                    <Route path="/home/:userid" element={ <HomePage/> } />
                     <Route path="/report" element={ <Report/> } />
                     <Route path="/account-setting" element={ <AccountSetting/> } />
-                    <Route path="/shop" element={ <Toggle/> } />
+                    <Route path="/shop/:userid" element={ <Toggle/> } />
                     <Route path="/test" element={ <Testing1/> } />
                 </Routes>
             </div>

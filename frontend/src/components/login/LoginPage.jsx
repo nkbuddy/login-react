@@ -11,7 +11,7 @@ const app = new Realm.App({ id: REALM_APP_ID });
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState("");
+  const [user_id, setUser] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const onChangeEmail = (e) => {
@@ -24,14 +24,38 @@ export default function SignInPage() {
 
   async function emailLogin(e) {
     e.preventDefault();
+    const credentials = Realm.Credentials.emailPassword(email, password);
+    // Authenticate the user
+    const user = await app.logIn(credentials);
+    setUser(user.id);
+    // `App.currentUser` updates to match the logged in user
+    //window.location.href = '/'+user.id;
     try {
-      const credentials = Realm.Credentials.emailPassword(email, password);
-      // Authenticate the user
-      const user = await app.logIn(credentials);
-      setUser(user);
-      // `App.currentUser` updates to match the logged in user
-      console.assert(user.id === app.currentUser.id); 
-      window.location.href = '/'+user.id;
+      if (user_id.length > 2) {
+        const data = {
+          email: email,
+          password: password,
+          user_id: user_id,
+        };
+        await axios
+          .post(
+            "https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/login",
+            data
+          )
+          .then((response) => {
+            console.log(response.data[0]);
+            console.log(response.data[0].permision_id);
+            if (response.data[0].permision_id === 1) {
+              window.location.href = "/shop/" + response.data[0].user_id;
+            } else {
+              window.location.href = "/home/" + response.data[0].user_id;
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+            setErrorMessage(e.error.toString());
+          });
+      }
     } catch (error) {
       //console.error('Failed to register user:', error);
       console.log(error.error.toString());
@@ -39,17 +63,17 @@ export default function SignInPage() {
     }
   }
 
-  async function GuestLogin(e) {
-    e.preventDefault();
-    const credentials = Realm.Credentials.anonymous();
-    // Authenticate the user
-    const user = await app.logIn(credentials);
-    setUser(user);
-    // `App.currentUser` updates to match the logged in user
-    console.assert(user.id === app.currentUser.id);
-    window.location.href = '/'+user.id;
-    return user;
-  }
+  // async function GuestLogin(e) {
+  //   e.preventDefault();
+  //   const credentials = Realm.Credentials.anonymous();
+  //   // Authenticate the user
+  //   const user = await app.logIn(credentials);
+  //   setUser(user);
+  //   // `App.currentUser` updates to match the logged in user
+  //   console.assert(user.id === app.currentUser.id);
+  //   window.location.href = '/'+user.id;
+  //   return user;
+  // }
 
   return (
     <Fragment>
@@ -106,6 +130,7 @@ export default function SignInPage() {
                 >
                   Sign in
                 </button>
+                {/* 
                 <small className="text-body-secondary">
                   By clicking Sign up, you agree to the terms of use.
                 </small>
@@ -128,7 +153,7 @@ export default function SignInPage() {
                   type="submit"
                 >
                   Sign in with Facebook
-                </button>
+                </button> */}
               </form>
               <footer>
                 <p>
@@ -141,12 +166,9 @@ export default function SignInPage() {
             </div>
           </div>
         </div>
-        {/* <div>
-          <div>{JSON.stringify(user, null, 2)}</div>
-        </div>
         <div>
-          <h1>Logged in with anonymous id: {user.id}</h1>
-        </div> */}
+          <h1>Logged in with anonymous id: {user_id}</h1>
+        </div>
       </div>
     </Fragment>
   );
