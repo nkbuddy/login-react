@@ -14,6 +14,7 @@ import Testing1 from './testing1'
 
 import '../App.css'
 import "bootstrap/dist/css/bootstrap.css";
+import PendingAccount from './login/PendingAccount'
 
 export default function App() {
     return (
@@ -31,6 +32,7 @@ export default function App() {
                     <Route path="/account-setting" element={ <AccountSetting/> } />
                     <Route path="/shop/:userid" element={ <Toggle/> } />
                     <Route path="/test" element={ <Testing1/> } />
+                    <Route path="/accountmanagement" element={ <PendingAccount/> } />
                 </Routes>
             </div>
         </Router>

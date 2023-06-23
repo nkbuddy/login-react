@@ -11,7 +11,7 @@ const app = new Realm.App({ id: REALM_APP_ID });
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user_id, setUser] = useState("");
+  const [user, setUser] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const onChangeEmail = (e) => {
@@ -24,38 +24,39 @@ export default function SignInPage() {
 
   async function emailLogin(e) {
     e.preventDefault();
-    const credentials = Realm.Credentials.emailPassword(email, password);
-    // Authenticate the user
-    const user = await app.logIn(credentials);
-    setUser(user.id);
-    // `App.currentUser` updates to match the logged in user
-    //window.location.href = '/'+user.id;
     try {
-      if (user_id.length > 2) {
-        const data = {
-          email: email,
-          password: password,
-          user_id: user_id,
-        };
-        await axios
-          .post(
-            "https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/login",
-            data
-          )
-          .then((response) => {
-            console.log(response.data[0]);
-            console.log(response.data[0].permision_id);
-            if (response.data[0].permision_id === 1) {
-              window.location.href = "/shop/" + response.data[0].user_id;
-            } else {
-              window.location.href = "/home/" + response.data[0].user_id;
-            }
-          })
-          .catch((e) => {
-            console.log(e);
-            setErrorMessage(e.error.toString());
-          });
-      }
+      const credentials = Realm.Credentials.emailPassword(email, password);
+      // Authenticate the user
+      const userinfo = await app.logIn(credentials);
+      setUser(userinfo);
+      // `App.currentUser` updates to match the logged in user
+      //window.location.href = '/'+user.id;
+      // try {
+      //   if (user_id.length > 2) {
+      //     const data = {
+      //       email: email,
+      //       password: password,
+      //       user_id: user_id,
+      //     };
+      //     await axios
+      //       .post(
+      //         "https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/login",
+      //         data
+      //       )
+      //       .then((response) => {
+      //         console.log(response.data[0]);
+      //         console.log(response.data[0].permision_id);
+      //         if (response.data[0].permision_id === 1) {
+      //           window.location.href = "/shop/" + response.data[0].user_id;
+      //         } else {
+      //           window.location.href = "/home/" + response.data[0].user_id;
+      //         }
+      //       })
+      //       .catch((e) => {
+      //         console.log(e);
+      //         setErrorMessage(e.error.toString());
+      //       });
+      //   }
     } catch (error) {
       //console.error('Failed to register user:', error);
       console.log(error.error.toString());
@@ -167,7 +168,11 @@ export default function SignInPage() {
           </div>
         </div>
         <div>
-          <h1>Logged in with anonymous id: {user_id}</h1>
+          <h1>Print Object Example</h1>
+          <pre>{JSON.stringify(user, null, 2)}</pre>
+        </div>
+        <div>
+          <h1>Logged in with anonymous id: {user.id}</h1>
         </div>
       </div>
     </Fragment>
