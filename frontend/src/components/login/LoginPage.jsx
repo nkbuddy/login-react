@@ -30,51 +30,35 @@ export default function SignInPage() {
       const userinfo = await app.logIn(credentials);
       setUser(userinfo);
       // `App.currentUser` updates to match the logged in user
-      //window.location.href = '/'+user.id;
-      // try {
-      //   if (user_id.length > 2) {
-      //     const data = {
-      //       email: email,
-      //       password: password,
-      //       user_id: user_id,
-      //     };
-      //     await axios
-      //       .post(
-      //         "https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/login",
-      //         data
-      //       )
-      //       .then((response) => {
-      //         console.log(response.data[0]);
-      //         console.log(response.data[0].permision_id);
-      //         if (response.data[0].permision_id === 1) {
-      //           window.location.href = "/shop/" + response.data[0].user_id;
-      //         } else {
-      //           window.location.href = "/home/" + response.data[0].user_id;
-      //         }
-      //       })
-      //       .catch((e) => {
-      //         console.log(e);
-      //         setErrorMessage(e.error.toString());
-      //       });
-      //   }
+          const data = {
+            email: email,
+            password: password,
+            user_id: user.id,
+          };
+          await axios
+            .post(
+              "https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/login",
+              data
+            )
+            .then((response) => {
+              console.log(response.data[0]);
+              console.log(response.data[0].permision_id);
+              if (response.data[0].allow_login) {
+                window.location.href = "/shop/";
+              } else {
+                window.location.href = "/home/";
+              }
+            })
+            .catch((e) => {
+              console.log(e);
+              setErrorMessage(e.error.toString());
+            });
     } catch (error) {
       //console.error('Failed to register user:', error);
       console.log(error.error.toString());
       setErrorMessage(error.error.toString());
     }
   }
-
-  // async function GuestLogin(e) {
-  //   e.preventDefault();
-  //   const credentials = Realm.Credentials.anonymous();
-  //   // Authenticate the user
-  //   const user = await app.logIn(credentials);
-  //   setUser(user);
-  //   // `App.currentUser` updates to match the logged in user
-  //   console.assert(user.id === app.currentUser.id);
-  //   window.location.href = '/'+user.id;
-  //   return user;
-  // }
 
   return (
     <Fragment>
@@ -131,30 +115,6 @@ export default function SignInPage() {
                 >
                   Sign in
                 </button>
-                {/* 
-                <small className="text-body-secondary">
-                  By clicking Sign up, you agree to the terms of use.
-                </small>
-                <hr className="my-4" />
-                <button
-                  className="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
-                  onClick={GuestLogin}
-                >
-                  Sign in as Guest
-                </button>
-                <button
-                  className="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
-                  type="submit"
-                >
-                  Sign in with Google
-                  <i className="bi bi-google-fill btn"></i>
-                </button>
-                <button
-                  className="w-100 py-2 mb-2 btn btn-outline-primary rounded-3"
-                  type="submit"
-                >
-                  Sign in with Facebook
-                </button> */}
               </form>
               <footer>
                 <p>

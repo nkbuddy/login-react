@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import * as Realm from "realm-web";
 
 import "../../App.css";
 import UserList from "./UserList";
@@ -12,8 +11,8 @@ export default function PendingAccount() {
     retrieveUsers();
   }, [usersData]);
 
-  const retrieveUsers = () => {
-    axios
+  async function retrieveUsers(){
+    await axios
       .get(
         "https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/get_all_users"
       )

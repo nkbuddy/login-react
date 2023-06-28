@@ -22,15 +22,14 @@ export default function App() {
             <div>
             <Navbar/>
                 <Routes>
-                    <Route path="/:userid" element={<HomePage/>}/>
                     <Route path="/" element={ <LandingPage/> } />
                     <Route path="/login" element={ <LoginPage/> } />
                     <Route path="/register" element={ <RegisterPage/> } />
                     <Route path="/forget-password" element={ <ForgetPasswordPage/> } />
-                    <Route path="/home/:userid" element={ <HomePage/> } />
+                    <Route path="/home/" element={ <HomePage/> } />
                     <Route path="/report" element={ <Report/> } />
                     <Route path="/account-setting" element={ <AccountSetting/> } />
-                    <Route path="/shop/:userid" element={ <Toggle/> } />
+                    <Route path="/shop/" element={ <Toggle/> } />
                     <Route path="/test" element={ <Testing1/> } />
                     <Route path="/accountmanagement" element={ <PendingAccount/> } />
                 </Routes>

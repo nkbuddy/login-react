@@ -12,6 +12,26 @@ function UserList({ user }) {
       email: user.email,
       password: user.password,
       is_admin: !user.is_admin,
+      allow_login: user.allow_login,
+    };
+    await axios
+      .put(
+        "https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/editAdmin",
+        admindata
+      )
+      .then((response) => {
+        console.log(response.data[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  async function editLogin() {
+    const admindata = {
+      email: user.email,
+      password: user.password,
+      is_admin: user.is_admin,
+      allow_login: !user.allow_login,
     };
     await axios
       .put(
@@ -28,8 +48,8 @@ function UserList({ user }) {
   return (
     <tr>
       <td>
-        <button>
-          {user.permision_id === 1 ? (
+      <button onClick={editLogin}>
+          {user.allow_login ? (
             <span className="btn btn-success">Yes</span>
           ) : (
             <span className="btn btn-danger">No</span>
