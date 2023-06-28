@@ -10,7 +10,8 @@ export default function PendingAccount() {
   const [usersData, setUsersData] = useState([]);
   useEffect(() => {
     retrieveUsers();
-  }, []);
+  }, [usersData]);
+
   const retrieveUsers = () => {
     axios
       .get(

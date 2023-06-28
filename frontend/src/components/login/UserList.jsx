@@ -7,20 +7,24 @@ const REALM_APP_ID = "application-0-hxfdv"; // e.g. myapp-abcde
 const app = new Realm.App({ id: REALM_APP_ID });
 
 function UserList({ user }) {
-    async function editAdmin({}){
-        const admindata ={
-            email: user.email,
-            password: user.password,
-            is_admin: !(user.is_admin),
-        }
-        await axios.put(
-            'https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/editAdmin',admindata
-        ).then((response)=>{
-            console.log(response.data[0]);
-        }).catch((error)=>{
-            console.log(error);
-        })
-    }
+  async function editAdmin() {
+    const admindata = {
+      email: user.email,
+      password: user.password,
+      is_admin: !user.is_admin,
+    };
+    await axios
+      .put(
+        "https://us-east-1.aws.data.mongodb-api.com/app/application-0-hxfdv/endpoint/editAdmin",
+        admindata
+      )
+      .then((response) => {
+        console.log(response.data[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   return (
     <tr>
       <td>
