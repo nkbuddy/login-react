@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as Realm from "realm-web";
 
@@ -13,6 +13,7 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -33,7 +34,7 @@ export default function SignInPage() {
           const data = {
             email: email,
             password: password,
-            user_id: user.id,
+            user_id: userinfo.id,
           };
           await axios
             .post(
@@ -44,9 +45,9 @@ export default function SignInPage() {
               console.log(response.data[0]);
               console.log(response.data[0].permision_id);
               if (response.data[0].allow_login) {
-                window.location.href = "/shop/";
+                navigate('/shop');
               } else {
-                window.location.href = "/home/";
+                navigate('/home');
               }
             })
             .catch((e) => {
@@ -72,12 +73,6 @@ export default function SignInPage() {
           <div className="modal-content rounded-4 shadow">
             <div className="modal-header p-5 pb-4 border-bottom-0">
               <h1 className="fw-bold mb-0 fs-2">Sign in to us</h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
             </div>
 
             <div className="modal-body p-5 pt-0">
