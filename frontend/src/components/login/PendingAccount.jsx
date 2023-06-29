@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import NavbarAfterLogin from "../navbar/NavbarAfterLogin";
 
 import "../../App.css";
 import UserList from "./UserList";
@@ -28,6 +29,7 @@ export default function PendingAccount() {
 
   return (
     <Fragment>
+      <NavbarAfterLogin/>
       <table className="table table-hover table-sm table-responsive-sm">
         <thead className="table-success">
           <tr>

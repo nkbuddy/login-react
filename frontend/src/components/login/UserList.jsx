@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 //import panelFinishList from "../../../panelFinish.js";
 import axios from "axios";
 import * as Realm from "realm-web";
+import NavbarAfterLogin from "../navbar/NavbarAfterLogin";
 
 const REALM_APP_ID = "application-0-hxfdv"; // e.g. myapp-abcde
 const app = new Realm.App({ id: REALM_APP_ID });
@@ -46,36 +47,39 @@ function UserList({ user }) {
       });
   }
   return (
-    <tr>
-      <td>
-      <button onClick={editLogin}>
-          {user.allow_login ? (
-            <span className="btn btn-success">Yes</span>
-          ) : (
-            <span className="btn btn-danger">No</span>
-          )}
-        </button>
-      </td>
-      <td>
-        <button onClick={editAdmin}>
-          {user.is_admin ? (
-            <span className="btn btn-success">Yes</span>
-          ) : (
-            <span className="btn btn-danger">No</span>
-          )}
-        </button>
-      </td>
-      <td>{user.user_id}</td>
-      <td>{user.email}</td>
-      <td>{user.password}</td>
-      <td>{user.firstName}</td>
-      <td>{user.lastName}</td>
-      <td>{user.companyName}</td>
-      <td>{user.phoneNumber}</td>
-      <td>
-        {user.street}, {user.city}, {user.state}, {user.zipcode}
-      </td>
-    </tr>
+    <Fragment>
+      <NavbarAfterLogin />
+      <tr>
+        <td>
+          <button onClick={editLogin}>
+            {user.allow_login ? (
+              <span className="btn btn-success">Yes</span>
+            ) : (
+              <span className="btn btn-danger">No</span>
+            )}
+          </button>
+        </td>
+        <td>
+          <button onClick={editAdmin}>
+            {user.is_admin ? (
+              <span className="btn btn-success">Yes</span>
+            ) : (
+              <span className="btn btn-danger">No</span>
+            )}
+          </button>
+        </td>
+        <td>{user.user_id}</td>
+        <td>{user.email}</td>
+        <td>{user.password}</td>
+        <td>{user.firstName}</td>
+        <td>{user.lastName}</td>
+        <td>{user.companyName}</td>
+        <td>{user.phoneNumber}</td>
+        <td>
+          {user.street}, {user.city}, {user.state}, {user.zipcode}
+        </td>
+      </tr>
+    </Fragment>
   );
 }
 

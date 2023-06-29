@@ -8,7 +8,6 @@ import ForgetPasswordPage from './login/ForgetPasswordPage'
 import HomePage from './HomePage'
 import Report from './report/Report'
 import AccountSetting from './profile/AccountSetting'
-import Navbar from './navbar/Navbar.jsx'
 import Toggle from './shop/Toggle'
 import Testing1 from './testing1'
 
@@ -20,7 +19,6 @@ export default function App() {
     return (
         <Router>
             <div>
-            <Navbar/>
                 <Routes>
                     <Route path="/" element={ <LandingPage/> } />
                     <Route path="/login" element={ <LoginPage/> } />

@@ -2,6 +2,7 @@ import React, { useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import * as Realm from "realm-web";
+import NavbarBeforeLogin from "../navbar/NavbarBeforeLogin";
 
 import "../../App.css";
 
@@ -116,6 +117,7 @@ export default function SignUpPage() {
 
   return (
     <Fragment>
+      <NavbarBeforeLogin/>
       <div className="col-md-10 mx-auto col-lg-5">
         <h2>Join us</h2>
         <h5>Create your personal account</h5>
@@ -148,7 +150,7 @@ export default function SignUpPage() {
             <input
               type="password"
               className="form-control"
-              id="floatingPassword"
+              id="reEnterFloatingPassword"
               placeholder="Password"
               value={reEnterPassword}
               onChange={onChangeReEnterPassword}

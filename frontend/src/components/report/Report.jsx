@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { Chart } from "react-google-charts";
+import NavbarAfterLogin from "../navbar/NavbarAfterLogin";
 
 export const data = [
   ["Year", "Sales", "Expenses"],
@@ -18,6 +19,7 @@ export const options = {
 export default function Report() {
   return (
     <Fragment>
+      <NavbarAfterLogin/>
       <div className="container-fluid">
         <div className="row">
           <nav

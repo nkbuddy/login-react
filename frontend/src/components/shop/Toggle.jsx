@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import CreateDoor from "./door/CreateDoor";
+import NavbarAfterLogin from "../navbar/NavbarAfterLogin";
 
 function Toggle() {
   const [info, setInfo] = useState({
@@ -20,6 +21,7 @@ function Toggle() {
   }
   return (
     <Fragment>
+      <NavbarAfterLogin/>
       <div className="input-group d-flex justify-content-center">
         <i
           onClick={cabinetClicked}

@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as Realm from "realm-web";
+import NavbarBeforeLogin from "../navbar/NavbarBeforeLogin";
 
 import "../../App.css";
 
@@ -63,6 +64,7 @@ export default function SignInPage() {
 
   return (
     <Fragment>
+      <NavbarBeforeLogin/>
       <div
         className="modal modal-sheet position-static d-block p-4 py-md-5"
         tabIndex="-1"
