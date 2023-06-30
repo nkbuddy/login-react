@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as Realm from "realm-web";
 import NavbarBeforeLogin from "./navbar/NavbarBeforeLogin";
@@ -7,7 +7,8 @@ import NavbarBeforeLogin from "./navbar/NavbarBeforeLogin";
 const REALM_APP_ID = "application-0-hxfdv"; // e.g. myapp-abcde
 const app = new Realm.App({ id: REALM_APP_ID });
 
-export default function Tseting1() {
+export default function Testing1() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -23,6 +24,7 @@ export default function Tseting1() {
   });
 
   const [errors, setErrors] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -47,13 +49,15 @@ export default function Tseting1() {
         )
         .then((response) => {
         console.log(response)
+        navigate('/login')
         })
         .catch((e) => {
           console.log(e);
+          setErrorMessage(e.error.toString());
         });
-        window.location.href = '/login';
       } catch (error) {
         console.error("Failed to register user:", error);
+        setErrorMessage(error.error.toString());
       }
     } else {
       // Form has errors, update state with validation errors
@@ -271,6 +275,7 @@ export default function Tseting1() {
             <label className="form-label">zipcode</label>
             {errors.zipcode && <span style={{ color: "red" }}>{errors.zipcode}</span>}
           </div>
+          <div style={{ color: 'red' }}>{errorMessage}</div>
           <button
             className="w-100 btn btn-lg btn-primary"
             type="submit"
