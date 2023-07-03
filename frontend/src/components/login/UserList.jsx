@@ -2,7 +2,6 @@ import React, { Fragment, useState, useEffect } from "react";
 //import panelFinishList from "../../../panelFinish.js";
 import axios from "axios";
 import * as Realm from "realm-web";
-import NavbarAfterLogin from "../navbar/NavbarAfterLogin";
 
 const REALM_APP_ID = "application-0-hxfdv"; // e.g. myapp-abcde
 const app = new Realm.App({ id: REALM_APP_ID });
@@ -48,7 +47,6 @@ function UserList({ user }) {
   }
   return (
     <Fragment>
-      <NavbarAfterLogin />
       <tr>
         <td>
           <button onClick={editLogin}>
