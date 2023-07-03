@@ -15,7 +15,7 @@ export default function AccountSetting() {
 
     <div className="row g-5">
       <div className="col-md-5 col-lg-4 order-md-last">
-        <h1>ttg</h1>
+        <h1>User Profile</h1>
       </div>
       <div className="col-md-7 col-lg-8">
         <h4 className="mb-3">Billing address</h4>
