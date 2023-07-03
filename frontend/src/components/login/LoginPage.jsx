@@ -124,13 +124,6 @@ export default function SignInPage() {
             </div>
           </div>
         </div>
-        <div>
-          <h1>Print Object Example</h1>
-          <pre>{JSON.stringify(user, null, 2)}</pre>
-        </div>
-        <div>
-          <h1>Logged in with anonymous id: {user.id}</h1>
-        </div>
       </div>
     </Fragment>
   );
