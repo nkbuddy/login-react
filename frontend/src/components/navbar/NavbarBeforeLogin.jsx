@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function NavbarBeforeLogin() {
   return (
-    <header className="d-flex justify-content-center py-3">
+    <header className="d-flex justify-content-center py-3 shadow">
       <div className="col-md-3 mb-2 mb-md-0">
         <a
           href="/"
